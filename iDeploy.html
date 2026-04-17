@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iDeploy Hub</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #0e0e0e;
+    --surface: #161616;
+    --border: #2a2a2a;
+    --accent: #00ff88;
+    --accent-dim: rgba(0,255,136,0.12);
+    --warn: #ff6b35;
+    --warn-dim: rgba(255,107,53,0.12);
+    --muted: #555;
+    --text: #e0e0e0;
+    --text-dim: #888;
+    --red: #ff4444;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', monospace;
+    font-size: 13px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--accent);
+  }
+
+  .logo span { color: var(--text-dim); font-weight: 400; }
+
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Sections */
+  .section {
+    border-bottom: 1px solid var(--border);
+    padding: 16px;
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  /* Slot Switcher */
+  .slot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .slot-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .slot-card.active {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .slot-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .slot-meta {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  /* Comparison Portal */
+  .portal-frame {
+    width: 100%;
+    height: 300px;
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Log Area */
+  .log-area {
+    background: #0a0a0a;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 8px 10px;
+    height: 120px;
+    overflow-y: auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 16px;
+    text-align: center;
+  }
+
+  .footer-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+  }
+
+  .btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--accent);
+    border-color: var(--accent);
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">iDeploy<span>.hub</span></div>
+  <div id="headerDot" class="status-dot"></div>
+</div>
+
+<!-- SLOTS / VARIANTS -->
+<div class="section">
+  <div class="section-label">Rapid Variant Testing</div>
+  <div class="slot-grid" id="slotGrid">
+    <div class="slot-card active" onclick="switchSlot('A')">
+      <div class="slot-name">Slot A</div>
+      <div class="slot-meta">Primary Design</div>
+    </div>
+    <div class="slot-card" onclick="switchSlot('B')">
+      <div class="slot-name">Slot B</div>
+      <div class="slot-meta">Experimental</div>
+    </div>
+  </div>
+  <div class="portal-frame" id="portalFrame">
+    [ App Preview for Slot A ]
+  </div>
+</div>
+
+<!-- FEEDBACK HUB -->
+<div class="section">
+  <div class="section-label">Live Feedback Hub</div>
+  <div class="log-area" id="feedbackList">
+    <div style="padding: 20px; text-align: center;">Waiting for playtester feedback...</div>
+  </div>
+  <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+    <span class="footer-text">Tap FEED button to leave notes</span>
+    <button class="btn" onclick="refreshFeedback()">refresh</button>
+  </div>
+</div>
+
+<!-- SYSTEM LOG -->
+<div class="section">
+  <div class="section-label">System Activity</div>
+  <div class="log-area" id="logArea"></div>
+</div>
+
+<div class="footer">
+  <span class="footer-text">iDeploy v2.0 · Live Iteration Mode</span>
+</div>
+
+<!-- Inject Live Reload & Feedback Script -->
+<script src="/lib/live-reload.js"></script>
+
+<script>
+  function log(msg, type = '') {
+    const area = document.getElementById('logArea');
+    const line = document.createElement('div');
+    const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+    line.textContent = `${time}  ${msg}`;
+    area.appendChild(line);
+    area.scrollTop = area.scrollHeight;
+  }
+
+  function switchSlot(slot) {
+    document.querySelectorAll('.slot-card').forEach(c => c.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    document.getElementById('portalFrame').textContent = `[ App Preview for Slot ${slot} ]`;
+    log(`Switched to Slot ${slot}`, 'ok');
+  }
+
+  async function refreshFeedback() {
+    log('Refreshing feedback...');
+    // In a real scenario, we'd fetch from the server
+    // For now, we'll just show we're checking
+  }
+
+  // Handle reload signal from live-reload.js if needed
+  window.addEventListener('message', (e) => {
+    if (e.data === 'reload') log('New build detected! Reloading...', 'ok');
+  });
+
+  log('iDeploy Hub initialized');
+  log('WebSocket connected to build server');
+</script>
+</body>
+</html>
