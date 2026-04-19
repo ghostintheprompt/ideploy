@@ -25,6 +25,14 @@ fi
 # Set executable permissions
 chmod +x "$STAGING_DIR/$APP_NAME/deploy.sh" "$STAGING_DIR/$APP_NAME/setup.sh"
 
+# Set Volume Icon
+if [ -f "icon.icns" ]; then
+  cp icon.icns "$STAGING_DIR/.VolumeIcon.icns"
+  SetFile -c icnC "$STAGING_DIR/.VolumeIcon.icns"
+  SetFile -a V "$STAGING_DIR/.VolumeIcon.icns"
+  SetFile -a C "$STAGING_DIR"
+fi
+
 # Create DMG
 hdiutil create -volname "$APP_NAME" -srcfolder "$STAGING_DIR" -ov -format UDZO "$DMG_NAME"
 
