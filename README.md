@@ -5,6 +5,8 @@
   
   **A rapid iOS deployment tool that blocks Apple validation domains and tracks provisioning expiry.**
   
+  It essentially turns your Mac into a private signing and deployment server. You use the command line for the heavy lifting and keep `iDeploy.html` open in your browser just to watch the logs and confirm the device is responding. No subscriptions, no revoked certificates, no bloat.
+  
   [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
   [![Platform: macOS](https://img.shields.io/badge/Platform-macOS-lightgrey.svg)](https://apple.com/macos)
   [![Release](https://img.shields.io/github/v/release/ghostintheprompt/ideploy.svg)](https://github.com/ghostintheprompt/ideploy/releases)
