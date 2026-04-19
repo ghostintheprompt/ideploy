@@ -8,22 +8,22 @@ STAGING_DIR="build_dmg"
 
 # Clean up previous builds
 rm -rf "$STAGING_DIR" "$DMG_NAME"
-mkdir -p "$STAGING_DIR/$APP_NAME/lib"
+mkdir -p "$STAGING_DIR/lib"
 
-# Copy files
-cp README.md "$STAGING_DIR/$APP_NAME/"
-cp BUILD.md "$STAGING_DIR/$APP_NAME/"
-cp iDeploy.html "$STAGING_DIR/$APP_NAME/"
-cp deploy.sh "$STAGING_DIR/$APP_NAME/"
-cp setup.sh "$STAGING_DIR/$APP_NAME/"
-cp lib/live-reload.js "$STAGING_DIR/$APP_NAME/lib/"
-cp lib/server.js "$STAGING_DIR/$APP_NAME/lib/"
+# Copy files to root of staging
+cp README.md "$STAGING_DIR/"
+cp BUILD.md "$STAGING_DIR/"
+cp iDeploy.html "$STAGING_DIR/"
+cp deploy.sh "$STAGING_DIR/"
+cp setup.sh "$STAGING_DIR/"
+cp lib/live-reload.js "$STAGING_DIR/lib/"
+cp lib/server.js "$STAGING_DIR/lib/"
 if [ -f "icon.png" ]; then
-  cp icon.png "$STAGING_DIR/$APP_NAME/"
+  cp icon.png "$STAGING_DIR/"
 fi
 
 # Set executable permissions
-chmod +x "$STAGING_DIR/$APP_NAME/deploy.sh" "$STAGING_DIR/$APP_NAME/setup.sh"
+chmod +x "$STAGING_DIR/deploy.sh" "$STAGING_DIR/setup.sh"
 
 # Set Volume Icon
 if [ -f "icon.icns" ]; then
