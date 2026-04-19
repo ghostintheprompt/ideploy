@@ -1,6 +1,6 @@
 #!/bin/bash
 # iDeploy - Personal iOS Deploy Tool
-# Usage: ./deploy.sh [install|resign|block|unblock|status|serve|watch]
+# Usage: ./deploy.sh [install|resign|block|unblock|status|serve|watch|check-update]
 
 DEVICE_UDID="${DEVICE_UDID:-}"
 APPLE_ID="${APPLE_ID:-}"
@@ -9,6 +9,7 @@ LOG_FILE="$HOME/.ideploy/deploy.log"
 CERT_NAME="Apple Development"
 SLOTS_DIR="$(pwd)/slots"
 HUB_PORT=3000
+VERSION="1.0.0"
 
 mkdir -p "$IPA_DIR"
 mkdir -p "$HOME/.ideploy"
@@ -16,6 +17,16 @@ mkdir -p "$SLOTS_DIR"
 
 log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+}
+
+# ── UPDATE CHECKER ───────────────────────────────────────────────────────────
+check_for_updates() {
+  sleep 3
+  local latest=$(curl -s https://api.github.com/repos/ghostintheprompt/ideploy/releases/latest 2>/dev/null | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+  if [ -n "$latest" ] && [ "$latest" != "v$VERSION" ] && [ "$latest" != "$VERSION" ]; then
+    echo -e "\n\033[0;32m[iDeploy] Update available: $latest (current: v$VERSION)\033[0m"
+    echo -e "Download: https://github.com/ghostintheprompt/ideploy/releases/latest\n"
+  fi
 }
 
 # ── FIND DEVICE ──────────────────────────────────────────────────────────────
@@ -248,6 +259,11 @@ status() {
 }
 
 # ── ENTRY POINT ──────────────────────────────────────────────────────────────
+# Start update checker in background
+if [ "$1" != "check-update" ]; then
+  check_for_updates &
+fi
+
 case "$1" in
   install)    
     IPA="$2"
@@ -260,6 +276,11 @@ case "$1" in
   status)     status ;;
   serve)      serve_hub ;;
   watch)      watch_project "$2" "$3" ;;
+  check-update)
+    echo "Checking for updates..."
+    check_for_updates
+    wait
+    ;;
   *)
     echo "iDeploy - Rapid Iteration Hub"
     echo ""
@@ -270,5 +291,7 @@ case "$1" in
     echo "  ./deploy.sh install <app.ipa> [s] — resign + push to device (optional slot)"
     echo "  ./deploy.sh block                 — block Apple validation domains"
     echo "  ./deploy.sh unblock               — restore Apple domains"
+    echo "  ./deploy.sh check-update          — check for newer version"
     ;;
 esac
+

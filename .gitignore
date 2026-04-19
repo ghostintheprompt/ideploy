@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+DerivedData/
+*.dmg
+build/
+dist/
+test_ipa/
+slots/
+feedback/

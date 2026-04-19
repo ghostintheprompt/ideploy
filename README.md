@@ -1,24 +1,43 @@
-# iDeploy — Personal iOS Deploy Tool
+<div align="center">
+  <img src="icon.png" width="128" height="128" alt="iDeploy Icon" />
+  
+  # iDeploy
+  
+  **A rapid iOS deployment tool that blocks Apple validation domains and tracks provisioning expiry.**
+  
+  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+  [![Platform: macOS](https://img.shields.io/badge/Platform-macOS-lightgrey.svg)](https://apple.com/macos)
+  [![Release](https://img.shields.io/github/v/release/ghostintheprompt/ideploy.svg)](https://github.com/ghostintheprompt/ideploy/releases)
+</div>
 
-Your device. Your rules.
+## Features
 
-## What This Does
+| Feature | Description |
+| :--- | :--- |
+| **Local Deploy** | Pushes to your device over WiFi via `ios-deploy` |
+| **Resign IPAs** | Re-signs your IPA using your free Apple ID cert |
+| **Domain Block** | Blocks Apple validation domains via `/etc/hosts` so expiry checks never happen |
+| **Web Hub** | View system activity from your browser |
+| **Update Check** | Silent update checker for new releases via GitHub API |
 
-- **Re-signs your IPA** using your free Apple ID cert
-- **Pushes to your device** over WiFi via ios-deploy
-- **Blocks Apple validation domains** via /etc/hosts so expiry checks never happen
-- **Tracks expiry** and auto re-signs before it hits
+## Installation
 
-## Setup (One Time)
+### 1. DMG Download (Recommended)
+Download the latest `iDeploy_v1.0.0.dmg` from the [Releases](https://github.com/ghostintheprompt/ideploy/releases) page and copy the folder to your Applications.
 
+### 2. Homebrew (Cask)
+*(Pending tap approval)*
 ```bash
+brew install --cask ghostintheprompt/tap/ideploy
+```
+
+### 3. Build from Source
+```bash
+git clone https://github.com/ghostintheprompt/ideploy.git
+cd ideploy
 chmod +x setup.sh deploy.sh
 ./setup.sh
 ```
-
-You need Xcode installed with your Apple ID added once under:
-`Xcode → Settings → Accounts`
-That's the only time you touch Xcode.
 
 ## Usage
 
@@ -35,37 +54,20 @@ That's the only time you touch Xcode.
 # Just resign without installing
 ./deploy.sh resign MyGame.ipa
 
+# Start the Web Hub
+./deploy.sh serve
+
 # Restore Apple domains if needed
 ./deploy.sh unblock
 ```
 
-## The UI
+## Privacy
 
-Open `iDeploy.html` in any browser for the visual interface.
-Drag and drop IPAs, toggle blocking, one-click deploy.
+**100% Local. Zero Telemetry.**
+iDeploy runs entirely on your machine. It makes zero analytics calls, collects no usage data, and routes no traffic outside of your local network, with the sole exception of a lightweight GitHub API check to see if a new version is available.
 
-## How the Blocking Works
+---
 
-Adds these to `/etc/hosts` → `0.0.0.0`:
-- ocsp.apple.com
-- ocsp2.apple.com  
-- crl.apple.com
-- valid.apple.com
-- ppq.apple.com
-- And 4 more Apple validation endpoints
-
-Your test device on the same network routes through your Mac's DNS — no validation calls ever reach Apple.
-
-## Requirements
-
-- macOS 12+
-- Xcode (free)
-- ios-deploy (`brew install ios-deploy`)
-- Your iPhone trusted on your Mac (one USB connection)
-- Free Apple ID
-
-## Notes
-
-- This is 100% legal — your device, your app, your network
-- Works best on a dedicated test device that stays on your local network
-- The $99/year account still gives the cleanest experience but this works
+<div align="center">
+  Built by <a href="https://ghostintheprompt.com/articles/who-the-fuck-is-this-guy">MDRN Corp — mdrn.app</a>
+</div>
