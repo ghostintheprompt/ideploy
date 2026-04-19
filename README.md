@@ -70,6 +70,8 @@ chmod +x setup.sh deploy.sh
 ./deploy.sh unblock
 ```
 
+*If you're baked, it's still easy to run—even on Kashmiri.*
+
 ## Privacy
 
 **100% Local. Zero Telemetry.**
