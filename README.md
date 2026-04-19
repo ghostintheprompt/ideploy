@@ -12,6 +12,13 @@
   [![Release](https://img.shields.io/github/v/release/ghostintheprompt/ideploy.svg)](https://github.com/ghostintheprompt/ideploy/releases)
 </div>
 
+## Quick Start
+
+```bash
+git clone https://github.com/ghostintheprompt/ideploy.git && cd ideploy && ./setup.sh
+./deploy.sh install YourApp.ipa
+```
+
 ## Features
 
 | Feature | Description |
