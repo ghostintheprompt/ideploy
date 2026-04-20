@@ -1,4 +1,6 @@
-<img src="icon.png" width="200" alt="iDeploy Icon" />
+<p align="center">
+  <img src="icon.png" width="520" alt="iDeploy Icon" />
+</p>
 
 # iDeploy
 
