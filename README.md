@@ -1,16 +1,18 @@
-<div align="center">
-  <img src="icon.png" width="256" height="256" alt="iDeploy Icon" />
-  
-  # iDeploy
-  
-  **A rapid iOS deployment tool that blocks Apple validation domains and tracks provisioning expiry.**
-  
-  It essentially turns your Mac into a private signing and deployment server. You use the command line for the heavy lifting and keep `iDeploy.html` open in your browser just to watch the logs and confirm the device is responding. No subscriptions, no revoked certificates, no bloat.
-  
-  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-  [![Platform: macOS](https://img.shields.io/badge/Platform-macOS-lightgrey.svg)](https://apple.com/macos)
-  [![Release](https://img.shields.io/github/v/release/ghostintheprompt/ideploy.svg)](https://github.com/ghostintheprompt/ideploy/releases)
-</div>
+<img src="icon.png" width="200" alt="iDeploy Icon" />
+
+# iDeploy
+
+**Rapid iOS Deployment & Apple Validation Blocker — v1.0**
+
+Free. Open-source. No subscriptions. No telemetry. Built by [MDRN Corp](https://mdrn.app).
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Platform: macOS](https://img.shields.io/badge/Platform-macOS-lightgrey.svg)](https://apple.com/macos)
+[![Release](https://img.shields.io/github/v/release/ghostintheprompt/ideploy.svg)](https://github.com/ghostintheprompt/ideploy/releases)
+
+---
+
+It essentially turns your Mac into a private signing and deployment server. You use the command line for the heavy lifting and keep `iDeploy.html` open in your browser just to watch the logs and confirm the device is responding. No subscriptions, no revoked certificates, no bloat.
 
 ## Quick Start
 
@@ -79,6 +81,4 @@ iDeploy runs entirely on your machine. It makes zero analytics calls, collects n
 
 ---
 
-<div align="center">
-  Built by <a href="https://ghostintheprompt.com/articles/who-the-fuck-is-this-guy">MDRN Corp — mdrn.app</a>
-</div>
+Built by **MDRN Corp** — [ghostintheprompt.com](https://ghostintheprompt.com/articles/spectral-cyclops)
