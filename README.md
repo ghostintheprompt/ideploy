@@ -30,13 +30,15 @@ git clone https://github.com/ghostintheprompt/ideploy.git && cd ideploy && ./set
 | **Local Deploy** | Pushes to your device over WiFi via `ios-deploy` |
 | **Resign IPAs** | Re-signs your IPA using your free Apple ID cert |
 | **Domain Block** | Blocks Apple validation domains via `/etc/hosts` so expiry checks never happen |
-| **Web Hub** | View system activity from your browser |
+| **Session Exfil** | Captures full-session video recordings and environment snapshots (s1, s2) |
+| **Variant Test** | Rapidly switch between multiple deployment slots for A/B testing (s3) |
+| **Web Hub** | View live feedback, system activity, and recordings from your browser |
 | **Update Check** | Silent update checker for new releases via GitHub API |
 
 ## Installation
 
 ### 1. DMG Download (Recommended)
-Download the latest `iDeploy_v1.0.0.dmg` from the [Releases](https://github.com/ghostintheprompt/ideploy/releases) page and copy the folder to your Applications.
+Download the latest `iDeploy_v1.1.0.dmg` from the [Releases](https://github.com/ghostintheprompt/ideploy/releases) page and copy the folder to your Applications.
 
 ### 2. Homebrew (Cask)
 *(Pending tap approval)*

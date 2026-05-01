@@ -2,7 +2,7 @@
 # make_dmg.sh - Build a DMG for iDeploy
 
 APP_NAME="iDeploy"
-VERSION="1.0.0"
+VERSION="1.1.0"
 DMG_NAME="${APP_NAME}_v${VERSION}.dmg"
 STAGING_DIR="build_dmg"
 

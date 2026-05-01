@@ -9,7 +9,7 @@ LOG_FILE="$HOME/.ideploy/deploy.log"
 CERT_NAME="Apple Development"
 SLOTS_DIR="$(pwd)/slots"
 HUB_PORT=3000
-VERSION="1.0.0"
+VERSION="1.1.0"
 
 mkdir -p "$IPA_DIR"
 mkdir -p "$HOME/.ideploy"

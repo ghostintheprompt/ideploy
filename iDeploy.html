@@ -2,171 +2,73 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>iDeploy Hub</title>
-<link rel="icon" type="image/png" href="icon.png">
-<meta property="og:image" content="icon.png">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
-
-
-  :root {
-    --bg: #0e0e0e;
-    --surface: #161616;
-    --border: #2a2a2a;
-    --accent: #00ff88;
-    --accent-dim: rgba(0,255,136,0.12);
-    --warn: #ff6b35;
-    --warn-dim: rgba(255,107,53,0.12);
-    --muted: #555;
-    --text: #e0e0e0;
-    --text-dim: #888;
-    --red: #ff4444;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'IBM Plex Sans', monospace;
-    font-size: 13px;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    min-height: 100vh;
-    padding: 0;
-    overflow-x: hidden;
-    border-left: 1px solid var(--border);
-    border-right: 1px solid var(--border);
-  }
-
-  /* Header */
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px 12px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
-  }
-
-  .logo {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-    color: var(--accent);
-  }
-
-  .logo span { color: var(--text-dim); font-weight: 400; }
-
-  .status-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  /* Sections */
-  .section {
-    border-bottom: 1px solid var(--border);
-    padding: 16px;
-  }
-
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 12px;
-  }
-
-  /* Log Area */
-  .log-area {
-    background: #0a0a0a;
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 8px 10px;
-    height: 120px;
-    overflow-y: auto;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* Footer */
-  .footer {
-    padding: 16px;
-    text-align: center;
-  }
-
-  .footer-text {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px;
-    color: var(--muted);
-  }
-
-  .btn {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 6px 12px;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    background: transparent;
-    color: var(--accent);
-    border-color: var(--accent);
-    cursor: pointer;
-  }
+  :root { --bg: #0e0e0e; --surface: #161616; --border: #2a2a2a; --accent: #00ff88; --text: #e0e0e0; --muted: #555; }
+  body { background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', sans-serif; max-width: 400px; margin: 0 auto; border: 1px solid var(--border); min-height: 100vh; }
+  .header { padding: 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
+  .section { padding: 16px; border-bottom: 1px solid var(--border); }
+  .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .slot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .slot-card { background: var(--surface); border: 1px solid var(--border); padding: 12px; cursor: pointer; text-align: center; }
+  .slot-card.active { border-color: var(--accent); color: var(--accent); }
+  .log-area { background: #000; height: 150px; overflow-y: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; padding: 8px; color: #888; }
 </style>
 </head>
 <body>
-
-<div class="header">
-  <div class="logo">iDeploy<span>.hub</span></div>
-  <div id="headerDot" class="status-dot"></div>
+<div class="header"><div>iDeploy<b>.hub</b></div><div style="width:8px;height:8px;background:var(--accent);border-radius:50%"></div></div>
+<div class="section">
+  <div class="section-label">Rapid Variant Testing (s3)</div>
+  <div class="slot-grid">
+    <div class="slot-card active" onclick="switchSlot('A')">Slot A</div>
+    <div class="slot-card" onclick="switchSlot('B')">Slot B</div>
+  </div>
+  <div id="preview" style="margin-top:8px;height:100px;background:#000;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px">[ Preview: Slot A ]</div>
 </div>
-
-<!-- SYSTEM LOG -->
 <div class="section">
   <div class="section-label">System Activity</div>
-  <div class="log-area" id="logArea"></div>
+  <div id="logs" class="log-area"></div>
 </div>
-
-<div class="footer">
-  <span class="footer-text">iDeploy v2.0 · Live Iteration Mode</span>
+<div class="section">
+  <div class="section-label">Live Feedback (INC-1)</div>
+  <div id="feedback" class="log-area"></div>
 </div>
-
-<!-- Inject Live Reload & Feedback Script -->
 <script src="/lib/live-reload.js"></script>
-
 <script>
-  function log(msg, type = '') {
-    const area = document.getElementById('logArea');
+  function log(msg) {
+    const el = document.getElementById('logs');
     const line = document.createElement('div');
-    const time = new Date().toLocaleTimeString('en-US', { hour12: false });
-    line.textContent = `${time}  ${msg}`;
-    area.appendChild(line);
-    area.scrollTop = area.scrollHeight;
+    line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+    el.appendChild(line); el.scrollTop = el.scrollHeight;
   }
-
-  // Handle reload signal from live-reload.js if needed
-  window.addEventListener('message', (e) => {
-    if (e.data === 'reload') log('New build detected! Reloading...', 'ok');
-  });
-
-  log('iDeploy Hub initialized');
-  log('WebSocket connected to build server');
+  function switchSlot(s) {
+    document.querySelectorAll('.slot-card').forEach(c => c.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('preview').textContent = '[ Preview: Slot ' + s + ' ]';
+    log('Switched to Slot ' + s);
+  }
+  
+  async function refreshFeedback() {
+    const res = await fetch('/feedback-list');
+    const files = await res.json();
+    const container = document.getElementById('feedback');
+    container.innerHTML = '';
+    files.sort().reverse().forEach(f => {
+      const line = document.createElement('div');
+      line.style.marginBottom = '4px';
+      const link = document.createElement('a');
+      link.href = '/feedback/' + f;
+      link.target = '_blank';
+      link.textContent = f;
+      link.style.color = '#00ff88';
+      line.appendChild(link);
+      container.appendChild(line);
+    });
+  }
+  setInterval(refreshFeedback, 5000);
+  refreshFeedback();
+  log('Hub initialized');
 </script>
 </body>
 </html>
